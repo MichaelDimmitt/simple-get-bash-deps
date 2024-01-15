@@ -1,25 +1,16 @@
-# bash-static-analysis-tool-that-finds-all-keywords-and-runs-them-with-which
+# A simple script to list potential dependencies in a bash/shell file
 
-ignore list contains all bash language words
+## This script does the following
+1. takes a bash script and puts every word on a newline.
+2. removes common commands by using grep -v on result of compgen.
+3. splits on ( . because some commands are in subshells.
+4. removes special characters and any variables that present next to a dollar sign.
+5. removes ad hoc bash commands like "if" "then", manually done for now.
+6. uses sort and uniq combination to remove duplicate words
+7. puts all on one line for the caller to review.
 
-regex
+## Future work:
+1. accept path to the file/directory under review
+2. add logic to make directories and subdirectories work (i.e. `find` and `read`
 
-get bash deps blind.
 
-1. use regex Any text not contained in a single quote or double quote. (will miss some double quote values)
-2. to build the list
-3. and then iterate and tell which results
-
-4. regex  
-`/[\'\"](.*?)[\'\"]/g`  
-https://stackoverflow.com/a/171483/5283424
-
-5. grep wont work. since it returns lines.
-
-6. grep might work if we split everything to newlines.  
-`cat get-mp3-data.bash | grep -v '#' | grep -v 'echo' | tr ' ' '\n'`
-
-welp, I tried:
-```
-cat get-mp3-data.bash | grep -v '#'  | tr ' ' '\n' | grep -v -E "[\'\"](.*?)[\'\"]" | grep -v -E 'if|then|fi|reset|}|\]|\[|else|cat|rm|echo'
-```

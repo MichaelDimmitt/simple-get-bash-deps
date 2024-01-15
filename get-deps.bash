@@ -13,7 +13,7 @@ cat $filename  |
   grep -x '[[:alpha:]]*' | 
   grep -v -E "$compgenItems"  |
   grep -vE "if|then|else|fi|col|row|as|done|while|rm|cat|add|length|quiet|do|map|cp|v" |
-  uniq |
+  sort | uniq |
   tr "\n" " ";
 echo ;
 
